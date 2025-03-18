@@ -23,4 +23,15 @@ def voteOnOption(request):
         optionToVoteOn.votes += 1
         optionToVoteOn.save()
 
-        return HttpResponse(f"Poll updated: {pollContainingOption.question}. Voted for option {optionToVoteOn.option_text}")
+        timeoutScript = """
+        <script>
+        setTimeout(function() {
+            window.location.href = '/';
+        }, 2000);  // Convert seconds to milliseconds
+        </script>
+        """
+
+        return HttpResponse(f"""Poll updated: {pollContainingOption.question}. 
+        Voted for option {optionToVoteOn.option_text}
+        {timeoutScript}
+        """)
