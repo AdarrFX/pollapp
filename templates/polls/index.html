@@ -15,10 +15,6 @@
 
 <h2>Active Polls</h2>
 
-<ul>
-    {% for poll in activepolls %}
-	<li>{% block poll %}{% endblock %}</li>
-	{% endfor %}
-</ul>
+{% include 'polls/poll.html' %}
 
 {% endblock %}

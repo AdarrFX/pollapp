@@ -1,9 +1,28 @@
-{% extends 'index.html' %}
+{% block pollarea %}
+<ul>
+    {% for poll in polls %}
+    <li>
+        <div class="pollcontainer">
+            <h3 class="polltitle">{{ poll.question }}</h3>
+            <form method="POST" action="{% url 'vote' %}">
+                <input type="hidden" name="poll_id" value="{{ poll.id }}">
+                {% csrf_token %} 
+                <ul>
+                    {% for option in poll.options.all %}
+                    <li>
+                        <button type="submit" name="option_id" value="{{ option.id }}">
+                            {{ option.option_text }}
+                        </button>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </form>
 
-{% block poll %}
 
-<div class="pollcontainer">
-    <div><h3>{%  %}</h3></div>
-</div>
-
+        </div>
+    </li>
+    {% empty %}
+    <li>No active polls available at the moment.</li>
+    {% endfor %}
+</ul>
 {% endblock %}
