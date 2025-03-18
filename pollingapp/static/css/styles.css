@@ -1,0 +1,23 @@
+* {
+    margin: 0; /* Removes all default margins */
+    padding: 0; /* Optionally, you can also remove all padding */
+    box-sizing: border-box; /* Ensures padding and border are included in the element's width/height */
+}
+
+ul {
+    margin-left: 20px;
+}
+
+#newlistingform {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+header {
+    color: white;
+    background-color: black;
+    height: auto;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0 10px 0;
+}
