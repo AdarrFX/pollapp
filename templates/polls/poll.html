@@ -7,10 +7,10 @@
             <form method="POST" action="{% url 'vote' %}">
                 <input type="hidden" name="poll_id" value="{{ poll.id }}">
                 {% csrf_token %} 
-                <ul>
+                <ul class="options-container">
                     {% for option in poll.options.all %}
                     <li>
-                        <button type="submit" name="option_id" value="{{ option.id }}">
+                        <button type="submit" name="option_id" value="{{ option.id }}" class="option-button">
                             {{ option.option_text }}
                         </button>
                         <p>Votes: {{ option.votes }}</p>
