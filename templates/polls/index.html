@@ -7,15 +7,17 @@
 {% block content %}
 
 <header>
-    <h1> This is the index page. </h1>
+    <h1> Polling App </h1>
+    <div>
+        <a href="/about">Click here for the about page.</a>
+        <a href="/admin">Click here for the admin page.</a>
+    </div>
 </header>
 
-<a href="/about">Click here for the about page.</a>
-<a href="/admin">Click here for the admin page.</a>
 
-<h2>Active Polls</h2>
 
 <div class="poll-list-container">
+    <h2>Active Polls</h2>
     {% include 'polls/poll.html' %}
     {% endblock %}
 </div>
