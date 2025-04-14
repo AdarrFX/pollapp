@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from django.contrib.auth import login
+from .forms import RegisterForm
 from .models import Poll, Option
 
 def index(request):
@@ -29,3 +31,15 @@ def voteOnOption(request):
         Voted for option {optionToVoteOn.option_text}
         {timeoutScript}
         """)
+
+def register(request):
+    # https://www.pythontutorial.net/django-tutorial/django-registration/
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Log the user in after registration
+            return redirect("home")  # Redirect to homepage or dashboard
+    else:
+        form = RegisterForm()
+        return render(request, "register.html", {"form": form})
