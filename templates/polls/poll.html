@@ -1,6 +1,7 @@
 {% block pollarea %}
 <ul>
-    {% for poll in polls %}
+    {% for poll_data in polls %}
+    {% with poll=poll_data.poll userHasVoted=poll_data.userHasVoted %}
     <li>
         <div class="pollcontainer">
             <h3 class="polltitle">{{ poll.question }}</h3>
@@ -10,12 +11,20 @@
                 <ul class="options-container">
                     {% for option in poll.options.all %}
                     <li>
-                        <button type="submit" name="option_id" value="{{ option.id }}" class="option-button">
+                    <!-- Since VoteTracking has a ForeignKey to Poll, Django automatically creates a reverse relation on Poll called votetracking_set. -->
+                        {% if user.is_authenticated and not userHasVoted %}
+                            <button type="submit" name="option_id" value="{{ option.id }}" class="option-button">
+                                {{ option.option_text }}
+                            </button>
+                        {% else %}
+                        <button disabled name="option_id" value="{{ option.id }}" class="option-button">
                             {{ option.option_text }}
                         </button>
+                        {% endif %}
                         <p>Votes: {{ option.votes }}</p>
                     </li>
                     {% endfor %}
+                    {% endwith %}
                 </ul>
             </form>
 
