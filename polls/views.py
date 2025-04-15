@@ -30,7 +30,7 @@ def index(request):
     return render(request, 'polls/index.html', { 'polls': polls_with_vote_status })
 
 def about(request):
-    return render(request, 'polls/register.html')
+    return render(request, 'polls/about.html')
 
 def thing(request):
     return render(request, 'polls/register.html')
@@ -52,7 +52,7 @@ def voteOnOption(request):
         pollContainingOption = get_object_or_404(Poll, id=poll_id)
         user = request.user
 
-        timeoutScript = "<script>setTimeout(function() {window.location.href = '/'}, 2000);</script>"
+        timeoutScript = "<script>setTimeout(function() {window.location.href = '/'}, 3500);</script>"
 
         # Check if the user already voted on this poll
         if VoteTracking.objects.filter(user=user, poll=pollContainingOption).exists():
@@ -60,9 +60,9 @@ def voteOnOption(request):
             # Get the user's voted option
             voted_option = VoteTracking.objects.get(user=user, poll=pollContainingOption).option
             
-            return HttpResponse(f"""<div>You already voted on: {pollContainingOption.question}. 
+            return HttpResponse(f"""<div style='margin: 0 auto; max-width:400px;'>You already voted on: {pollContainingOption.question}. 
                 Voted for option {voted_option.option_text}.</div>
-                <a href='/'>Click here or wait to return.</a>
+                <a href='/' style='display:block; margin: 0 auto; max-width:400px;'>Click here or wait to return.</a>
                 {timeoutScript}
                 """)  # Show error page if they already voted
 
@@ -72,9 +72,10 @@ def voteOnOption(request):
         optionToVoteOn.votes += 1
         optionToVoteOn.save()
 
-        return HttpResponse(f"""<div style='margin: 0'>Poll updated: {pollContainingOption.question}. 
-        Voted for option {optionToVoteOn.option_text}.</div> <a href='/'>Click here or wait to return.</a>
-        {timeoutScript}
+        return HttpResponse(f"""<div style='margin: 0 auto; max-width:400px;'>Poll updated: {pollContainingOption.question}. 
+            Voted for option {optionToVoteOn.option_text}.</div>
+            <a href='/' style='display:block; margin: 0 auto; max-width:400px;'>Click here or wait to return.</a>
+            {timeoutScript}
         """)
 
 def register(request):

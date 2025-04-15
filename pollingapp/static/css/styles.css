@@ -68,3 +68,39 @@ a:link, a:visited {
     border-radius: 3px;
     font-size: auto;
 }
+
+.primary-container {
+    max-width: 600px;
+    margin: 20px auto;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.primary-container a:link, .primary-container a:visited{
+    color: blue;
+}
+
+.primary-container h1 {
+    text-align: center;
+}
+
+.primary-container ul {
+    font-size: small;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.primary-container .helptext {
+    font-size: small;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display:block
+}
+
+.primary-container button {
+    padding: 10px;
+    font-size: large;
+    margin: 0 auto;
+    display: block;
+}
