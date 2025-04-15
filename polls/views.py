@@ -1,14 +1,21 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
+from django.contrib.auth.views import LoginView
 from .forms import RegisterForm
 from .models import Poll, Option
+
+class LoginView(LoginView):
+    template_name = "polls/login.html"  # Your login template
 
 def index(request):
     activepolls = Poll.objects.all()
     return render(request, 'polls/index.html', { 'polls': activepolls })
 
 def about(request):
-    return render(request, 'polls/about.html')
+    return render(request, 'polls/register.html')
+
+def thing(request):
+    return render(request, 'polls/register.html')
 
 def active_polls(request):
     active_polls = Poll.objects.all()
@@ -39,7 +46,14 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)  # Log the user in after registration
-            return redirect("home")  # Redirect to homepage or dashboard
+            return redirect('index')  # Redirect to homepage or dashboard
+        else:
+            # IMPORTANT: If form is not valid, return the register page with errors
+            return render(request, 'polls/register.html', {'form': form})
     else:
         form = RegisterForm()
-        return render(request, "register.html", {"form": form})
+        return render(request, 'polls/register.html', {'form': form})
+
+def logout_view(request):
+    logout(request)  # Logs out the user
+    return redirect('index')  # Redirect to homepage
