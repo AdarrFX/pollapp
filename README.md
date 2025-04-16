@@ -46,6 +46,11 @@ Once dependencies are installed, type:
 
 This will boot up the python-django application in the terminal window. You can then go to http://localhost:8000 to interact with the application.
 
+## Administration
+The default administrator login is:
+- username: adampachulski
+- password: 12345
+
 # Created By: 
 - Adam Pachulski
 - CST 8002
